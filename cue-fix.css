@@ -1,0 +1,49 @@
+.cue-table-wrap {
+  overflow-x: auto;
+}
+
+.cue-table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+}
+
+.cue-table th,
+.cue-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 11px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.cue-table th {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.cue-table strong,
+.cue-table small {
+  display: block;
+}
+
+.cue-table small {
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.time-cell {
+  width: 112px;
+  color: #344052;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.cue-record-actions {
+  width: 132px;
+}
+
+.cue-record-actions button {
+  width: 100%;
+  margin-bottom: 7px;
+  padding: 8px 10px;
+}
