@@ -26,6 +26,7 @@
   }
 
   async function copyText(text, button, defaultText) {
+    if (button) button.textContent = "복사 중";
     try {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(text);
@@ -47,7 +48,22 @@
         }, 1400);
       }
     } catch {
-      window.prompt("아래 대본을 길게 눌러 복사하세요.", text);
+      const helper = document.createElement("textarea");
+      helper.value = text;
+      helper.setAttribute("readonly", "");
+      helper.style.position = "fixed";
+      helper.style.left = "-9999px";
+      document.body.appendChild(helper);
+      helper.select();
+      const copied = document.execCommand("copy");
+      helper.remove();
+      if (button) {
+        button.textContent = copied ? "복사 완료" : "직접 복사";
+        window.setTimeout(() => {
+          button.textContent = defaultText;
+        }, 1400);
+      }
+      if (!copied) window.prompt("아래 대본을 길게 눌러 복사하세요.", text);
     }
   }
 
