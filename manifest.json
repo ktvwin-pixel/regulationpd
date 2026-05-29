@@ -1,0 +1,21 @@
+{
+  "name": "KOREA CONTENTS LAB 규제 해소 콘텐츠 PD",
+  "short_name": "KLC 규제 PD",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#155a6f",
+  "description": "규제 개선 이슈 분석, 유튜브 기획안, 큐시트 제작 웹앱",
+  "icons": [
+    {
+      "src": "klc-logo.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "klc-logo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
