@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#155a6f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="KLC 규제 PD" />
+    <title>규제 해소 콘텐츠 PD</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="klc-logo.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <div class="brand-title">
+          <img src="klc-logo.svg" alt="KOREA CONTENTS LAB 로고" />
+          <div>
+        <p class="eyebrow">Korea Regulation Reform Strategy Studio</p>
+        <h1>규제 해소 콘텐츠 PD</h1>
+          </div>
+        </div>
+        <p class="lead">
+          매주 언론 보도, 정부 보도자료, 공기업·민간 요구, 유튜브 반응을 종합해
+          규제 개선 이슈 3건과 영상 기획안을 만드는 모바일 대응 웹앱입니다.
+        </p>
+      </div>
+      <div class="header-panel" aria-label="이번 주 분석 기준">
+        <span>이번 주 우선순위</span>
+        <strong id="weekLabel">-</strong>
+        <small>현장피해 × 혁신저해 × 개선가능성</small>
+      </div>
+    </header>
+
+    <main>
+      <section class="toolbar" aria-label="주간 작업 도구">
+        <button id="analyzeBtn" type="button">TOP 3 분석</button>
+        <button id="emailBtn" type="button" class="secondary">이메일 기획안 작성</button>
+        <button id="copyBtn" type="button" class="secondary">보고서 복사</button>
+      </section>
+
+      <section class="metrics" aria-label="분석 지표">
+        <article>
+          <span>수집 이슈</span>
+          <strong id="metricTotal">0</strong>
+        </article>
+        <article>
+          <span>정부·공공</span>
+          <strong id="metricGov">0</strong>
+        </article>
+        <article>
+          <span>민간 요구</span>
+          <strong id="metricPrivate">0</strong>
+        </article>
+        <article>
+          <span>댓글·여론</span>
+          <strong id="metricComments">0</strong>
+        </article>
+      </section>
+
+      <section class="workspace">
+        <div class="panel input-panel">
+          <div class="panel-title">
+            <div>
+              <p class="eyebrow">Issue Intake</p>
+              <h2>이슈 입력</h2>
+            </div>
+            <button id="resetBtn" type="button" class="ghost">초기화</button>
+          </div>
+          <form id="issueForm">
+            <label>
+              규제·이슈 제목
+              <input id="title" name="title" required placeholder="예: 소상공인 온라인 판로를 막는 인증 중복 규제" />
+            </label>
+            <label>
+              출처 유형
+              <select id="sourceType" name="sourceType">
+                <option>정부 보도자료</option>
+                <option>언론 보도</option>
+                <option>공기업 요구</option>
+                <option>민간 기업 요구</option>
+                <option>민간 단체 요구</option>
+                <option>유튜브·댓글 이슈</option>
+              </select>
+            </label>
+            <label>
+              출처 URL 또는 메모
+              <input id="source" name="source" placeholder="정부24, 부처 보도자료, 기사, 유튜브 링크 등" />
+            </label>
+            <label>
+              핵심 내용
+              <textarea id="summary" name="summary" rows="5" required placeholder="규제가 생긴 배경, 현재 피해, 개선 필요성을 적어주세요."></textarea>
+            </label>
+            <div class="score-grid">
+              <label>
+                현장 피해
+                <input id="damage" name="damage" type="range" min="1" max="5" value="4" />
+              </label>
+              <label>
+                혁신 저해
+                <input id="innovation" name="innovation" type="range" min="1" max="5" value="4" />
+              </label>
+              <label>
+                여론 관심
+                <input id="attention" name="attention" type="range" min="1" max="5" value="3" />
+              </label>
+              <label>
+                개선 가능성
+                <input id="feasibility" name="feasibility" type="range" min="1" max="5" value="4" />
+              </label>
+            </div>
+            <button type="submit">이슈 추가</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">
+            <div>
+              <p class="eyebrow">Weekly Radar</p>
+              <h2>수집된 규제 이슈</h2>
+            </div>
+            <span id="saveState">자동 저장</span>
+          </div>
+          <div id="issueList" class="issue-list" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="panel analysis-panel">
+        <div class="panel-title">
+          <div>
+            <p class="eyebrow">Top 3 Analysis</p>
+            <h2>이번 주 총괄 분석</h2>
+          </div>
+          <span>좋은 규제의 조건 프레임 적용</span>
+        </div>
+        <div id="topIssues" class="top-grid"></div>
+      </section>
+
+      <section class="panel plan-panel">
+        <div class="panel-title">
+          <div>
+            <p class="eyebrow">YouTube Production Brief</p>
+            <h2>영상 콘텐츠 기획안</h2>
+          </div>
+          <span>수신: 2025koreacl@gmail.com</span>
+        </div>
+        <textarea id="reportOutput" aria-label="이메일 보고서" rows="18"></textarea>
+      </section>
+
+      <section class="panel cue-panel">
+        <div class="panel-title">
+          <div>
+            <p class="eyebrow">Practical Script Archive</p>
+            <h2>실용 대본·큐시트 저장소</h2>
+          </div>
+          <span>저장, 복사, 이메일 공유</span>
+        </div>
+        <div class="cue-layout">
+          <div>
+            <div class="cue-tabs" role="tablist" aria-label="큐시트 유형">
+              <button class="cue-tab shorts active" type="button" data-cue="shorts">20초 쇼츠</button>
+              <button class="cue-tab broadcast" type="button" data-cue="broadcast">10분 방송</button>
+              <button class="cue-tab live" type="button" data-cue="live">60분 생방송</button>
+            </div>
+            <textarea id="cueOutput" aria-label="큐시트 대본" rows="20"></textarea>
+            <div class="cue-actions">
+              <button id="saveCueBtn" type="button">대본 저장</button>
+              <button id="copyCueBtn" type="button" class="secondary">대본 복사</button>
+              <button id="shareCueBtn" type="button" class="secondary">이메일 공유</button>
+            </div>
+          </div>
+          <aside class="saved-cues" aria-label="저장된 대본">
+            <h3>저장된 대본</h3>
+            <div id="savedCueList"></div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        실무 사용법: 매주 금요일 정부 보도자료·언론 기사·유튜브 댓글 이슈를 입력한 뒤
+        TOP 3 분석을 누르면 이메일용 기획안이 생성됩니다.
+      </p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./sw.js").catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>
