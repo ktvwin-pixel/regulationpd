@@ -37,8 +37,10 @@
     <main>
       <section class="toolbar" aria-label="주간 작업 도구">
         <button id="analyzeBtn" type="button">TOP 3 분석</button>
+        <button id="summarizeBtn" type="button" class="secondary">주요이슈 3개 요약</button>
         <button id="emailBtn" type="button" class="secondary">이메일 기획안 작성</button>
         <button id="copyBtn" type="button" class="secondary">보고서 복사</button>
+        <button id="refreshBtn" type="button" class="ghost">새로고침</button>
       </section>
 
       <section class="metrics" aria-label="분석 지표">
@@ -135,6 +137,7 @@
           </div>
           <span>좋은 규제의 조건 프레임 적용</span>
         </div>
+        <div id="issueSummary" class="issue-summary" aria-live="polite"></div>
         <div id="topIssues" class="top-grid"></div>
       </section>
 
@@ -191,7 +194,16 @@
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker.register("./sw.js").catch(() => {});
+          navigator.serviceWorker
+            .register("./sw.js")
+            .then((registration) => registration.update())
+            .catch(() => {});
+        });
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (refreshing) return;
+          refreshing = true;
+          window.location.reload();
         });
       }
     </script>

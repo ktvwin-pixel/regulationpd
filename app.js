@@ -58,6 +58,7 @@ const seedIssues = [
 const form = document.querySelector("#issueForm");
 const issueList = document.querySelector("#issueList");
 const topIssues = document.querySelector("#topIssues");
+const issueSummary = document.querySelector("#issueSummary");
 const reportOutput = document.querySelector("#reportOutput");
 const cueOutput = document.querySelector("#cueOutput");
 const savedCueList = document.querySelector("#savedCueList");
@@ -196,6 +197,29 @@ function renderTopIssues() {
   });
 }
 
+function summarizeIssue(issue, index) {
+  const score = scoreIssue(issue).toFixed(1);
+  const source = issue.source || "추가 확인 필요";
+  return {
+    title: `${index + 1}. ${issue.title}`,
+    body: `${classify(issue)} · 점수 ${score}. ${issue.summary} 출처는 ${source}이며, 핵심 개선 방향은 ${makeReformAngle(issue)}`,
+  };
+}
+
+function renderIssueSummary() {
+  const summaries = getTopIssues().map(summarizeIssue);
+  issueSummary.innerHTML = summaries
+    .map(
+      (item) => `
+        <article class="summary-card">
+          <strong>${escapeHtml(item.title)}</strong>
+          <p>${escapeHtml(item.body)}</p>
+        </article>
+      `
+    )
+    .join("");
+}
+
 function getTopIssues() {
   return [...state.issues].sort((a, b) => scoreIssue(b) - scoreIssue(a)).slice(0, 3);
 }
@@ -235,6 +259,7 @@ function makeVideoFormat(issue) {
 
 function buildReport() {
   const top = getTopIssues();
+  const summaries = top.map(summarizeIssue);
   const date = new Intl.DateTimeFormat("ko-KR", {
     year: "numeric",
     month: "long",
@@ -250,6 +275,9 @@ function buildReport() {
     "",
     "총괄 판단:",
     "이번 주 분석은 규제의 선한 목적과 실제 현장 효과가 어긋나는 지점을 중심으로 보았습니다. 특히 사고 예방을 명분으로 쌓인 사전절차, 중복 인증, 책임 회피형 서류 규정이 국민과 기업에게 보이지 않는 유리턱으로 작동하는지를 우선 검토했습니다.",
+    "",
+    "주요이슈 3개 요약:",
+    ...summaries.map((item) => `- ${item.title}: ${item.body}`),
     "",
   ];
 
@@ -427,6 +455,7 @@ function escapeHtml(value) {
 function renderAll() {
   renderMetrics();
   renderIssues();
+  renderIssueSummary();
   renderTopIssues();
   renderReport();
   renderCueSheet();
@@ -464,6 +493,31 @@ issueList.addEventListener("click", (event) => {
 });
 
 document.querySelector("#analyzeBtn").addEventListener("click", renderAll);
+
+document.querySelector("#summarizeBtn").addEventListener("click", () => {
+  renderIssueSummary();
+  renderReport();
+  issueSummary.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+document.querySelector("#refreshBtn").addEventListener("click", async () => {
+  const button = document.querySelector("#refreshBtn");
+  button.textContent = "갱신 중";
+  try {
+    if ("serviceWorker" in navigator) {
+      const registration = await navigator.serviceWorker.getRegistration();
+      if (registration) {
+        await registration.update();
+        if (registration.waiting) {
+          registration.waiting.postMessage({ type: "SKIP_WAITING" });
+        }
+      }
+    }
+    window.location.reload();
+  } catch {
+    window.location.reload();
+  }
+});
 
 document.querySelector("#copyBtn").addEventListener("click", async () => {
   await navigator.clipboard.writeText(reportOutput.value);
