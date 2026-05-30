@@ -1,4 +1,4 @@
-const CACHE_NAME = "klc-regulation-pd-v4";
+const CACHE_NAME = "klc-regulation-pd-v5";
 const APP_FILES = [
   "./",
   "./index.html",
