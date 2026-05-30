@@ -3,7 +3,7 @@
   const cueStorageKey = "regulation-pd-cues-v1";
   const cueTypes = {
     shorts: "20초 쇼츠 제작용 큐시트",
-    broadcast: "10분 방송 제작용 큐시트",
+    broadcast: "1분 영상 제작용 원고",
     live: "60분 유튜브 생방송용 큐시트",
   };
 

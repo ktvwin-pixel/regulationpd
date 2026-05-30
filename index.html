@@ -23,14 +23,14 @@
           </div>
         </div>
         <p class="lead">
-          매주 언론 보도, 정부 보도자료, 공기업·민간 요구, 유튜브 반응을 종합해
-          규제 개선 이슈 3건과 영상 기획안을 만드는 모바일 대응 웹앱입니다.
+          규제 시민 포럼의 주간 입법 모니터링과 좋은 규제 13대 조건을 바탕으로
+          이번 주 좋은 규제·나쁜 규제 후보 3건과 바로 쓸 수 있는 원고를 만드는 웹앱입니다.
         </p>
       </div>
       <div class="header-panel" aria-label="이번 주 분석 기준">
         <span>이번 주 우선순위</span>
         <strong id="weekLabel">-</strong>
-        <small>현장피해 × 혁신저해 × 개선가능성</small>
+        <small>입법 모니터링 × 13대 조건 × 개선가능성</small>
       </div>
     </header>
 
@@ -79,6 +79,7 @@
             <label>
               출처 유형
               <select id="sourceType" name="sourceType">
+                <option>입법 모니터링</option>
                 <option>정부 보도자료</option>
                 <option>언론 보도</option>
                 <option>공기업 요구</option>
@@ -164,7 +165,7 @@
           <div>
             <div class="cue-tabs" role="tablist" aria-label="큐시트 유형">
               <button class="cue-tab shorts active" type="button" data-cue="shorts">20초 쇼츠</button>
-              <button class="cue-tab broadcast" type="button" data-cue="broadcast">10분 방송</button>
+              <button class="cue-tab broadcast" type="button" data-cue="broadcast">1분 영상</button>
               <button class="cue-tab live" type="button" data-cue="live">60분 생방송</button>
             </div>
             <textarea id="cueOutput" aria-label="큐시트 대본" rows="20"></textarea>
@@ -184,13 +185,13 @@
 
     <footer>
       <p>
-        실무 사용법: 매주 금요일 정부 보도자료·언론 기사·유튜브 댓글 이슈를 입력한 뒤
-        TOP 3 분석을 누르면 이메일용 기획안이 생성됩니다.
+        실무 사용법: 매주 규제 시민 포럼 입법 모니터링 결과를 입력하거나 기본 후보를 새로고침한 뒤
+        TOP 3 분석을 누르면 13대 조건 분석과 쇼츠·1분 영상·60분 생방송 원고가 생성됩니다.
       </p>
     </footer>
 
     <script src="app.js"></script>
-    <script src="cue-fix.js?v=2"></script>
+    <script src="cue-fix.js?v=3"></script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {

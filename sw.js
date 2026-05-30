@@ -1,11 +1,11 @@
-const CACHE_NAME = "klc-regulation-pd-v3";
+const CACHE_NAME = "klc-regulation-pd-v4";
 const APP_FILES = [
   "./",
   "./index.html",
   "./styles.css",
   "./cue-fix.css?v=2",
   "./app.js",
-  "./cue-fix.js?v=2",
+  "./cue-fix.js?v=3",
   "./manifest.json",
   "./sw.js",
   "./klc-logo.svg",
